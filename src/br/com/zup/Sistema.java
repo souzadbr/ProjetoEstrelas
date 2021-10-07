@@ -20,7 +20,7 @@ public class Sistema {
         System.out.println("Digite 4 - para sair.");
     }
 
-    public static Consumidor cadastrarConsumidor() throws Exception{
+    public static Consumidor cadastrarConsumidor() throws Exception {
         String nome = capturaDados("Digite o nome do consumidor: ").nextLine();
         String email = capturaDados("Digite o email do consumidor: ").nextLine();
 
@@ -28,20 +28,53 @@ public class Sistema {
     }
 
     public static Fatura cadastraFatura() throws Exception {
-        String email =  capturaDados("Digite o email do consumnidor: ").nextLine();
+        String email = capturaDados("Digite o email do consumnidor: ").nextLine();
         double valor = capturaDados("Digite o valor da fatura: ").nextDouble();
         String dataDeVencimento = capturaDados("Digite a data do vencimento: ").nextLine();
 
         return ServiçoFatura.cadastrarFatura(email, valor, dataDeVencimento);
     }
 
-    public static List<Fatura> pesquisarFatura()throws Exception{
-        String email =  capturaDados("Digite o email do consumnidor: ").nextLine();
+    public static List<Fatura> pesquisarFatura() throws Exception {
+        String email = capturaDados("Digite o email do consumnidor: ").nextLine();
         ServicoConsumidor.validarEmail(email);
         //Receber lista do serviço fatura
-        List<Fatura>faturasDoUsuario = ServiçoFatura.pesquisarFaturaPeloEmailConsumidor(email);
+        List<Fatura> faturasDoUsuario = ServiçoFatura.pesquisarFaturaPeloEmailConsumidor(email);
 
         return faturasDoUsuario;
+    }
+
+    public static boolean execultar() throws Exception {
+        boolean continuar = true;
+
+        while (continuar) {
+
+            menu();
+            int opcaoDoUsuario = capturaDados("digite a opção desejada: ").nextInt();
+
+            //Cadastrar consumidor.
+            if (opcaoDoUsuario == 1) {
+                Consumidor consumidor = cadastrarConsumidor();
+                System.out.println(consumidor);//printar consumidor.
+            } else if (opcaoDoUsuario == 2) {
+                //Cadastrar fatura
+                Fatura fatura = cadastraFatura();
+                System.out.println(fatura);
+            } else if (opcaoDoUsuario == 3) {
+                //Consultar faturas de um consumidor
+                List<Fatura> fatura = pesquisarFatura();
+                System.out.println("Quantidade de faturas: " + fatura.size());
+                System.out.println(fatura);
+            } else if (opcaoDoUsuario == 4) {
+                continuar = false;
+
+            }else{
+                System.out.println("Opção inválida. Digite novamente.");
+            }
+
+
+        }
+        return continuar;
     }
 
 }

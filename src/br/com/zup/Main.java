@@ -3,14 +3,16 @@ package br.com.zup;
 public class Main {
 
     public static void main(String[] args) {
-        try{
-            Sistema.cadastrarConsumidor();
-            Sistema.cadastraFatura();
-            Sistema.cadastraFatura();
-            Sistema.pesquisarFatura();
+        boolean continuar = true;
+        while(continuar){
+            try{
+               continuar =  Sistema.execultar();
 
-        }catch(Exception erro){
-            System.out.println(erro.getMessage()); //mensagem que esta no estouro da excessão
+            }catch(Exception erro){
+
+                System.out.println(erro.getMessage()); //mensagem que esta no estouro da excessão
+            }
+
         }
 
 
